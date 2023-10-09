@@ -1,0 +1,10 @@
+com\example\demo\controlador\ControladorPersona.class
+com\example\demo\DemoApplication.class
+com\example\demo\repositorios\PersonaRepositorio.class
+com\example\demo\entidades\Persona.class
+com\example\demo\controlador\ControladorTarea.class
+com\example\demo\servicios\TareaServicio$1.class
+com\example\demo\servicios\PersonaServicio.class
+com\example\demo\servicios\TareaServicio.class
+com\example\demo\repositorios\TareaRepositorio.class
+com\example\demo\entidades\Tarea.class

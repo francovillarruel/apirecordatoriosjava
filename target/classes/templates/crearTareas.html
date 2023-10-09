@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Aplicación de Tareas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+
+<header>
+    <div th:if="${exito}!=null">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <h5 class="card-title">EXITO</h5>
+                <p class="card-text" th:text="${exito}"></p>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${error}!=null">
+        <div class="card text-white bg-danger">
+            <div class="card-body">
+                <h5 class="card-title">ERROR</h5>
+                <p class="card-text" th:text="${error}"></p>
+            </div>
+        </div>
+    </div>
+</header>
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/"><button type="button" class="btn btn-outline-primary">Inicio</button></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" href="/persona/crearPersona" ><button type="button" class="btn btn-outline-success">Crear/Ver Personas</button></a>
+                <a class="nav-link" href="/mostrarActivas"><button type="button" class="btn btn-outline-success">Ver Tareas Activas</button></a>
+                <a class="nav-link" href="/mostrarCumplidas"><button type="button" class="btn btn-outline-success">Ver Tareas Terminadas</button></a>
+             </div>
+        </div>
+    </div>
+</nav>
+    <br/>
+    <br/>
+<body class="container my-5">
+    <h1><strong><span style="text-align: center">¡ANOTÁ TUS RECORDATORIOS!</span></strong></h1> 
+    <br/><br/>
+    <form action="/crearTareas" method="POST">
+        <div class="mb-3">
+            <label for="inputTitulo" class="form-label">Ingrese el Título: </label>
+            <input type="text" class="form-control" id="inputTitulo" name="titulo">
+        </div>
+        <div class="mb-3">
+            <label for="inputDescripcion" class="form-label">Ingrese descripción de Tarea: </label>
+            <input type="text" class="form-control" id="inputDescripcion" name="descripcion">
+        </div>
+        <div class="mb-3">
+            <label for="inputDiaLimite" class="form-label">Ingrese fecha límite de Tarea (día): </label>
+            <input type="number" class="form-control" id="inputDiaLimite" name="diaLimite">
+        </div>
+        <div class="mb-3">
+            <label for="mesLimite" class="form-label">Ingrese mes: </label>
+            <select name="mesLimite" id="mesLimite">
+                <option value="1">Enero</option>
+                <option value="2">Febrero</option>
+                <option value="3">Marzo</option>
+                <option value="4">Abril</option>
+                <option value="5">Mayo</option>
+                <option value="6">Junio</option>
+                <option value="7">Julio</option>
+                <option value="8">Agosto</option>
+                <option value="9">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="inputIdPersona" class="form-label"><strong>Persona que debe cumplir la Tarea:</strong></label>
+            <select name="idPersona" id="inputIdPersona">
+                <option value="" selected>Seleccionar Persona:</option>
+                <th:block th:each="persona : ${personas}">
+                    <option th:value="${persona.id}" th:text="${persona.nombre}"></option>
+                </th:block>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">CREAR TAREA</button>
+    </form>
+    <br/>
+    <br/>
+    
+            
+    <div class="row">
+        <div th:each="tarea : ${tareas}" class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${tarea.titulo}"></h5>
+                    <p class="card-text" th:text="${tarea.descripcion}"></p>
+                    <p class="card-text"><strong>Fecha de Creación:</strong>  <span th:text="${tarea.fechaCreacion}"></span></p>
+                    <p><strong>Persona: </strong><span th:if="${tarea.persona != null}" th:text="${tarea.persona.nombre}"></span></p>
+                    <p class="card-text"><strong>Estado:</strong> <span th:text="${tarea.active ? 'SIN COMPLETAR' : 'CUMPLIDA'}"></span></p>                
+                    <a th:href="@{/mostrar/__${tarea.id}__}"><button type="button" class="btn btn-secondary btn-sm">Mostrar Tarea</button></a>                <br/> 
+                    <a th:href="@{/modificar/__${tarea.id}__}"><button type="button" class="btn btn-secondary btn-sm">Modificar Tarea</button></a>                <br/> 
+                    <a th:href="@{/completar/__${tarea.id}__}"><button type="button" class="btn btn-secondary btn-sm">Marcar Como Completada</button></a>                <br/> 
+                    <a th:href="@{/eliminar/__${tarea.id}__}"><button type="button" class="btn btn-secondary btn-sm">Eliminar Tarea</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+</body>
+</html>

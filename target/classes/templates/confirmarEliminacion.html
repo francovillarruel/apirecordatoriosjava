@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Aplicación de Tareas</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    </head>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/"><button type="button" class="btn btn-outline-primary">Inicio</button></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="/persona/crearPersona" ><button type="button" class="btn btn-outline-success">Crear/Ver Personas</button></a>
+                    <a class="nav-link" href="/mostrarActivas"><button type="button" class="btn btn-outline-success">Ver Tareas Activas</button></a>
+                    <a class="nav-link" href="/mostrarCumplidas"><button type="button" class="btn btn-outline-success">Ver Tareas Terminadas</button></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <body class="container my-5"> 
+
+        <strong><h1>Deseas eliminar la tarea?</h1></strong>
+        <br>
+        <h3 th:text="${tarea.titulo}"></h3>
+        <br>
+        <p th:text="${tarea.descripcion}"></p>
+        <br>
+
+        <form th:action="@{/eliminar/__${tarea.id}__}" method="POST">
+            <button type="submit" class="btn btn-primary">ELIMINAR TAREA</button>
+            <br/> 
+            <br/> 
+            <button type="button" class="btn btn-secondary" href="/crearTarea"> Cancelar</button>
+        </form>
+
+    </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    </head>
+    
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/"><button type="button" class="btn btn-outline-primary">Inicio</button></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" href="/persona/crearPersona" ><button type="button" class="btn btn-outline-success">Crear/Ver Personas</button></a>
+                <a class="nav-link" href="/mostrarActivas"><button type="button" class="btn btn-outline-success">Ver Tareas Activas</button></a>
+                <a class="nav-link" href="/mostrarCumplidas"><button type="button" class="btn btn-outline-success">Ver Tareas Terminadas</button></a>
+             </div>
+        </div>
+    </div>
+</nav>
+        <br/>
+    <br/>
+    <body class="container my-5">
+
+        <h2 th:text="${persona.nombre}"></h2><br>
+        
+       <strong> <h3>Fecha Nacimiento: </strong><h3 th:text="${persona.nacimiento}"></h3></h3>
+        
+        <strong><h1> Tareas a Realizar: </h1></strong>
+        
+        <div class="card-group my-5">
+            
+            <div th:each="tarea : ${tareas}">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-text" th:tex="${tarea.titulo}"></h5>
+                        <p class="card-text" th:text="${tarea.descripcion}"></p>
+                        <a th:href="@{/mostrar/__${tarea.id}__}">Mostrar Tarea</a>                <br/> 
+                        <a th:href="@{/modificar/__${tarea.id}__}">Modificar Tarea</a>                <br/> 
+                        <a th:href="@{/completar/__${tarea.id}__}">Marcar Como Completada</a>                <br/> 
+                        <a th:href="@{/eliminar/__${tarea.id}__}">Eliminar Tarea</a>
+                    </div>
+                    <div class="card-footer">
+                            <div>
+                                <small class="text-body-secondary"> Fecha Creación: <span th:text="${tarea.FechaCreacion}"></span></small>
+                            </div>
+                            <div>
+                                <small class="text-body-secondary"> Fecha Limite: <span th:text="${tarea.FechaLimite}"></span></small>
+                            </div>
+                        <div th:if="${tarea.active}!=True">
+                            <h3 style="color: green">COMPLETADA</h3>
+                        </div>
+                        <div th:if="${tarea.active}!=False">
+                            <h3 style="color: red">SIN COMPLETAR</h3>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            
+        </div>
+        
+        <a href="/"><button type="button" class="btn btn-primary">Volver al Inicio</button></a>
+    </body>
+</html>
